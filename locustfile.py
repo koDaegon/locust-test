@@ -1,18 +1,19 @@
+import json
 import time
 from locust import HttpUser, task, between
 
 
 class branchUser(HttpUser):
     wait_time = between(1, 5)
-
-    @task
+    
     def on_start(self):
-        response = self.client.post("/api/auth/login",json={"login_id":"1001001","password":"1234"})
+        response = self.client.post("/api/auth/login",json={"login_id":"1001001","secret":"1234"})
         global token 
-        token = response["access_token"]
+        reponse_dict = response.json()
+        token = reponse_dict["access_token"]
         self.client.headers = {"Autoraization": "key="+token}
-        time.sleep(1)
         
+    @task
     def createNonScheduledRoutePlan(self):
         self.client.post("/nonScheduled/routeplan:save",json=[{
         "driving_id": "",
@@ -26,7 +27,7 @@ class branchUser(HttpUser):
         "vehicle_req_in_tm": "1200",
         "request_reason": "배차",
         "approval_status": "ready",
-        "driving_dt": "20220808",
+        "driving_dt": "20220809",
         "request_emp_no": "",
         "confirmation_charge": "",
         "sales_office_burden_ratio": "30",
