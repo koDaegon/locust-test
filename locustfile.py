@@ -26,7 +26,7 @@ class branchUser(HttpUser):
         "vehicle_req_in_tm": "1200",
         "request_reason": "배차",
         "approval_status": "ready",
-        "driving_dt": "20220808",
+        "driving_dt": "20220801",
         "request_emp_no": "",
         "confirmation_charge": "",
         "sales_office_burden_ratio": "30",
